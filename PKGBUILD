@@ -11,14 +11,15 @@ source=("git+https://gist.github.com/40dc881248c5685d1b9ccfbf559269fa.git"
 sha256sums=('SKIP' 'SKIP') 
 
 build() {
-    cd "$srcdir"
-    mv 40dc881248c5685d1b9ccfbf559269fa/iommu.sh print-iommu 
-    mv vfio-pci-bind/vfio-pci-bind.sh vfio-pci-bind 
+    mkdir -p  $srcdir/bin 
+
+    cp $srcdir/40dc881248c5685d1b9ccfbf559269fa/iommu.sh $srcdir/bin/print-iommu 
+    mv $srcdir/vfio-pci-bind/vfio-pci-bind.sh $srcdir/bin/vfio-pci-bind 
 }
 
 package() {
-    cd "$srcdir"
-    install -Dm755 print-iommu "$pkgdir/usr/bin/print-iommu" 
-    install -Dm755 vfio-pci-bind  "$pkgdir/usr/bin/vfio-pci-bind" 
+    cd $srcdir 
+    install -Dm755 bin/print-iommu "$pkgdir/usr/bin/print-iommu" 
+    install -Dm755 bin/vfio-pci-bind  "$pkgdir/usr/bin/vfio-pci-bind" 
 }
 
