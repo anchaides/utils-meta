@@ -10,7 +10,7 @@ source=("git+https://gist.github.com/40dc881248c5685d1b9ccfbf559269fa.git"
         "git+https://github.com/gnif/LookingGlass.git#tag=B7rc-1" 
 )
 sha256sums=('SKIP' 'SKIP' 'SKIP' ) 
-depends=('git' 'cmake' 'fontconfig' 'xorg' 'xscreensaver' 'binutils' 'libxss' 'libxpresent' 'pipewire' 'libsamplerate' 'spice-protocol' )
+depends=('git' 'cmake' 'fontconfig' 'binutils' 'libxss' 'libxpresent' 'pipewire' 'libsamplerate' 'spice-protocol' )
 
 build() {
     mkdir -p  $srcdir/bin 
