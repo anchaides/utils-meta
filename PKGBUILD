@@ -7,7 +7,7 @@ url=TBD
 license=('GPL')
 source=("git+https://gist.github.com/40dc881248c5685d1b9ccfbf559269fa.git"
         "git+https://github.com/andre-richter/vfio-pci-bind.git"
-        "git+https://github.com/gnif/LookingGlass.git#tag=B7rc-1" 
+        "git+https://github.com/gnif/LookingGlass.git#tag=B7-rc1" 
 )
 sha256sums=('SKIP' 'SKIP' 'SKIP' ) 
 depends=('git' 'cmake' 'fontconfig' 'binutils' 'libxss' 'libxpresent' 'pipewire' 'libsamplerate' 'spice-protocol' )
