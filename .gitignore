@@ -2,3 +2,6 @@
 src/
 pkg/
 *.tar.zst 
+LookingGlass/
+vfio-pci-bind/
+
