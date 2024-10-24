@@ -1,6 +1,6 @@
 pkgname=utils-meta 
 pkgver=1.1
-pkgrel=2
+pkgrel=3
 pkgdesc="Aggregator package for useful scripts I've ran across over time" 
 arch=('x86_64')
 url=TBD
@@ -23,7 +23,7 @@ build() {
     cd $srcdir/LookingGlass
     git submodule update --init --recursive
     cd client/build 
-    cmake -DENABLE_WAYLAND=no -DENABLE_PULSEAUDIO=no -DCMAKE_INSTALL_PREFIX=$srcdir ..
+    cmake -DENABLE_PULSEAUDIO=no -DCMAKE_INSTALL_PREFIX=$srcdir ..
     make install 
 
 }
