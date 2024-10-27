@@ -1,6 +1,6 @@
 pkgname=utils-meta 
 pkgver=1.1
-pkgrel=4
+pkgrel=5
 pkgdesc="Aggregator package for useful scripts I've ran across over time" 
 arch=('x86_64')
 url=TBD
