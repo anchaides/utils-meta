@@ -1,6 +1,6 @@
-pkgname=utils-meta 
+pkgname=anchaides-meta 
 pkgver=1.1
-pkgrel=5
+pkgrel=7
 pkgdesc="Aggregator package for useful scripts I've ran across over time" 
 arch=('x86_64')
 url=TBD
@@ -33,5 +33,6 @@ package() {
     install -Dm755 bin/print-iommu "$pkgdir/usr/bin/print-iommu" 
     install -Dm755 bin/vfio-pci-bind  "$pkgdir/usr/bin/vfio-pci-bind" 
     install -Dm755 bin/looking-glass-client "$pkgdir/usr/bin/looking-glass-client" 
+    install -Dm755 LookingGlass/resources/icon-128x128.png "$pkgdir/usr/share/icons/hicolor/128x128/apps/looking-glass-client.png"
 }
 
