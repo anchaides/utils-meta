@@ -1,8 +1,12 @@
 # Changelog
 
-## [1.1-3](https://github.com/anchaides/utils-meta/tree/v1.1-3) (2024-10-27)
+## [1.1-8](https://github.com/anchaides/utils/tree/v1.1-8) (2024-10-28)
+
+**Enhancements**
+
+- Now tracking changelog
 
 **Changes**
 
-- First changelog 
+- anchaides-meta standalone package, gatekeeer integration
 
