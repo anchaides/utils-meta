@@ -1,6 +1,6 @@
 pkgname=anchaides-meta 
 pkgver=1.2
-pkgrel=2
+pkgrel=3
 pkgdesc="Aggregator package for useful scripts I've ran across over time" 
 arch=('x86_64')
 url=TBD
@@ -38,9 +38,13 @@ package() {
 
     cd "$srcdir/LookingGlass/module"
 
-    sudo dkms autoinstall "."
+    source dkms.conf 
 
-    mkdir -p "${pkgdir}/etc/modprobe.d"
+    install -dm755 "{pkdir}/usr/src/${PACKAGE_NAME}-${PACKAGE_VERSION}"
+    sudo dkms autoinstall 
+
+
+    install -dm755  "${pkgdir}/etc/modprobe.d"
     echo "options kvmfr static_size_mb=32" > "${pkgdir}/etc/modprobe.d/kvmfr.conf"
 }
 
