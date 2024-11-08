@@ -1,6 +1,6 @@
 pkgname=anchaides-meta 
 pkgver=1.2
-pkgrel=3
+pkgrel=4
 pkgdesc="Aggregator package for useful scripts I've ran across over time" 
 arch=('x86_64')
 url=TBD
@@ -41,8 +41,11 @@ package() {
     source dkms.conf 
 
     install -dm755 "{pkdir}/usr/src/${PACKAGE_NAME}-${PACKAGE_VERSION}"
-    sudo dkms autoinstall 
+    sudo dkms add     -m ${PACKAGE_NAME} -v ${PACKAGE_VERSION} 
+    sudo dkms build   -m ${PACKAGE_NAME} -v ${PACKAGE_VERSION} 
+    sudo dkms install -m ${PACKAGE_NAME} -v ${PACKAGE_VERSION} 
 
+    sudo dkms autoinstall 
 
     install -dm755  "${pkgdir}/etc/modprobe.d"
     echo "options kvmfr static_size_mb=32" > "${pkgdir}/etc/modprobe.d/kvmfr.conf"
