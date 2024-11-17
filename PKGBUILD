@@ -1,6 +1,6 @@
 pkgname=anchaides-meta 
 pkgver=1.2
-pkgrel=9
+pkgrel=10
 pkgdesc="Aggregator package for useful scripts I've ran across over time" 
 arch=('x86_64')
 url=TBD
@@ -37,6 +37,7 @@ package() {
     install -Dm755 LookingGlass/resources/icon-128x128.png "$pkgdir/usr/share/icons/hicolor/128x128/apps/looking-glass-client.png"
 
     cd "$srcdir/LookingGlass/module"
+    git checkout e25492a3 
 
     source dkms.conf 
 
