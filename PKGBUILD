@@ -1,6 +1,6 @@
 pkgname=anchaides-meta 
 pkgver=1.2
-pkgrel=20
+pkgrel=21
 pkgdesc="Aggregator package for useful scripts I've ran across over time" 
 arch=('x86_64')
 url=TBD
@@ -8,7 +8,7 @@ license=('GPL')
 source=("git+https://gist.github.com/40dc881248c5685d1b9ccfbf559269fa.git"
         "git+https://github.com/andre-richter/vfio-pci-bind.git"
         "git+https://github.com/gnif/LookingGlass.git#tag=B7-rc1" 
-        "git+https://github.com/anchaides/input-forwarder.git#tag=v0.0.1"
+        "git+https://github.com/anchaides/input-forwarder.git#commit=af4f318be1f55a26053b019c71c60c1ae1c5f61a"
 )
 sha256sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' ) 
 depends=('git' 'cmake' 'fontconfig' 'binutils' 'libxss' 'libxpresent' 'pipewire' 'libsamplerate' 'spice-protocol' 'linux-lts-headers' 'linux-headers' )
