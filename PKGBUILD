@@ -1,6 +1,6 @@
 pkgname=anchaides-meta 
-pkgver=1.2
-pkgrel=22
+pkgver=1.3
+pkgrel=23
 pkgdesc="Aggregator package for useful scripts I've ran across over time" 
 arch=('x86_64')
 url=TBD
@@ -8,10 +8,10 @@ license=('GPL')
 source=("git+https://gist.github.com/40dc881248c5685d1b9ccfbf559269fa.git"
         "git+https://github.com/andre-richter/vfio-pci-bind.git"
         "git+https://github.com/gnif/LookingGlass.git#tag=B7-rc1" 
-        "git+https://github.com/anchaides/input-forwarder.git#commit=1dc3015"
+        "git+https://github.com/anchaides/input-forwarder.git#commit=99f1b33"
 )
 sha256sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' ) 
-depends=('git' 'cmake' 'fontconfig' 'binutils' 'libxss' 'libxpresent' 'pipewire' 'libsamplerate' 'spice-protocol' 'linux-lts-headers' 'linux-headers' )
+depends=('git' 'cmake' 'fontconfig' 'binutils' 'libxss' 'libxpresent' 'pipewire' 'libsamplerate' 'spice-protocol' 'linux-lts-headers' 'linux-headers' 'python-pywayland' 'python-pywlroots' 'wayland-protocols')
 
 build() {
     mkdir -p  $srcdir/bin 
@@ -27,7 +27,13 @@ build() {
     cmake -DENABLE_PULSEAUDIO=no -DCMAKE_INSTALL_PREFIX=$srcdir -DCMAKE_POLICY_VERSION_MINIMUM=3.5 ..
     make install 
 
-    
+    prev_cwd=$(pwd)
+    cd $srcdir/input-forwarder 
+    git submodule update --init --recursive 
+    cd wayland_client 
+    make 
+    cd $prev_cwd 
+
 }
 
 prepare() {
@@ -50,12 +56,15 @@ package() {
 
     mkdir -p $pkgdir/usr/lib/input_forwarder/
 
+    install -Dm755 $srcdir/input-forwarder/wayland_client/hover_surface    $pkgdir/usr/bin/
     install -Dm755 $srcdir/input-forwarder/input_forwarder/__init__.py  $pkgdir/usr/lib/input_forwarder/__init__.py
     install -Dm755 $srcdir/input-forwarder/input_forwarder/__main__.py  $pkgdir/usr/lib/input_forwarder/__main__.py
     install -Dm755 $srcdir/input-forwarder/input_forwarder/config.py    $pkgdir/usr/lib/input_forwarder/config.py
     install -Dm755 $srcdir/input-forwarder/input_forwarder/fsm.py       $pkgdir/usr/lib/input_forwarder/fsm.py
     install -Dm755 $srcdir/input-forwarder/input_forwarder/io_backend_x11.py  $pkgdir/usr/lib/input_forwarder/io_backend_x11.py
     install -Dm755 $srcdir/input-forwarder/input_forwarder/threads.py  $pkgdir/usr/lib/input_forwarder/threads.py
+    install -Dm755 $srcdir/input-forwarder/input_forwarder/composer_backend.py  $pkgdir/usr/lib/input_forwarder/composer_backend.py
+    install -Dm755 $srcdir/input-forwarder/input_forwarder/io_backend_wayland.py  $pkgdir/usr/lib/input_forwarder/io_backend_wayland.py
 
     mkdir    -p  $pkgdir/usr/lib/systemd/user/ 
     install -Dm644 $srcdir/input-forwarder/service/input-forwarder.service $pkgdir/usr/lib/systemd/user/input-forwarder.service
