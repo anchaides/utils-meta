@@ -8,7 +8,7 @@ license=('GPL')
 source=("git+https://gist.github.com/40dc881248c5685d1b9ccfbf559269fa.git"
         "git+https://github.com/andre-richter/vfio-pci-bind.git"
         "git+https://github.com/gnif/LookingGlass.git#tag=B7-rc1" 
-        "git+https://github.com/anchaides/input-forwarder.git#commit=7f9e7f1"
+        "git+https://github.com/anchaides/input-forwarder.git#commit=261fc17"
 )
 sha256sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' ) 
 depends=('git' 'cmake' 'fontconfig' 'binutils' 'libxss' 'libxpresent' 'pipewire' 'libsamplerate' 'spice-protocol' 'linux-lts-headers' 'linux-headers' 'python-pywayland' 'python-pywlroots' 'wayland-protocols')
@@ -89,7 +89,12 @@ package() {
     install -dm755  "${pkgdir}/etc/modules-load.d/" 
     echo "options kvmfr static_size_mb=32" > "${pkgdir}/etc/modprobe.d/kvmfr.conf"
     echo 'SUBSYSTEM=="kvmfr", KERNEL=="kvmfr0", OWNER="root", GROUP="kvm", MODE="0660"' > "${pkgdir}/etc/udev/rules.d/99-kvmfr.rules"
+
+    # Load all modules that need to be present at start up 
+    # KVMFR  - Looking Glass 
     echo "kvmfr" >  "${pkgdir}/etc/modules-load.d/kvmfr.conf"
+    # UINPUT - Input forwarder 
+    echo "uinput" > "${pkgdir}/etc/modules-load.d/uinput.conf"
 
 
 }
