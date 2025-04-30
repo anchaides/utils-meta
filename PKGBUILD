@@ -1,6 +1,6 @@
 pkgname=anchaides-meta 
 pkgver=1.3
-pkgrel=24
+pkgrel=25
 pkgdesc="Aggregator package for useful scripts I've ran across over time" 
 arch=('x86_64')
 url=TBD
@@ -94,7 +94,7 @@ package() {
     # KVMFR  - Looking Glass 
     echo "kvmfr" >  "${pkgdir}/etc/modules-load.d/kvmfr.conf"
     # UINPUT - Input forwarder 
-    echo "uinput" > "${pkgdir}/etc/modules-load.d/uinput.conf"
+    echo "uinput" > "${pkgdir}/etc/modprobe.d/uinput.conf"
 
 
 }
