@@ -1,6 +1,6 @@
 pkgname=anchaides-meta 
 pkgver=1.3
-pkgrel=26
+pkgrel=27
 pkgdesc="Aggregator package for useful scripts I've ran across over time" 
 arch=('x86_64')
 url=TBD
