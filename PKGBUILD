@@ -47,14 +47,11 @@ prepare() {
   #git checkout -f master
 
 }
-package() {
-    cd $srcdir 
-    install -Dm755 bin/print-iommu "$pkgdir/usr/bin/print-iommu" 
-    install -Dm755 bin/vfio-pci-bind  "$pkgdir/usr/bin/vfio-pci-bind" 
-    install -Dm755 bin/looking-glass-client "$pkgdir/usr/bin/looking-glass-client" 
-    install -Dm755 LookingGlass/resources/icon-128x128.png "$pkgdir/usr/share/icons/hicolor/128x128/apps/looking-glass-client.png"
 
+package_input_forwarder() {
     mkdir -p $pkgdir/usr/lib/input_forwarder/
+    mkdir -p $pkgdir/usr/bin/
+
 
     install -Dm755 $srcdir/input-forwarder/wayland_client/hover_surface    $pkgdir/usr/bin/
     install -Dm755 $srcdir/input-forwarder/input_forwarder/__init__.py  $pkgdir/usr/lib/input_forwarder/__init__.py
@@ -71,6 +68,24 @@ package() {
    
     mkdir    -p  $pkgdir/etc/udev/rules.d/ 
     install -Dm644 $srcdir/input-forwarder/service/99-uinput.rules  $pkgdir/etc/udev/rules.d/99-uinput.rules
+    # UINPUT - Input forwarder 
+    echo "uinput" > "${pkgdir}/etc/modules-load.d/uinput.conf"
+    echo 'KERNEL=="uinput", OWNER="root", GROUP="input", MODE="0660"' > "${pkgdir}/etc/udev/rules.d/99-uinput.rules"
+
+}
+
+package() {
+    cd $srcdir 
+
+    install -dm755  "${pkgdir}/etc/udev/rules.d/" 
+    install -dm755  "${pkgdir}/etc/modules-load.d/" 
+
+    package_input_forwarder
+
+    install -Dm755 bin/print-iommu "$pkgdir/usr/bin/print-iommu" 
+    install -Dm755 bin/vfio-pci-bind  "$pkgdir/usr/bin/vfio-pci-bind" 
+    install -Dm755 bin/looking-glass-client "$pkgdir/usr/bin/looking-glass-client" 
+    install -Dm755 LookingGlass/resources/icon-128x128.png "$pkgdir/usr/share/icons/hicolor/128x128/apps/looking-glass-client.png"
 
     cd "$srcdir/LookingGlass/module"
     git checkout e25492a3 
@@ -84,17 +99,13 @@ package() {
     install -dm755    "${pkgdir}/usr/src/${PACKAGE_NAME}-${PACKAGE_VERSION}"
     cp      -r $PWD/* "${pkgdir}/usr/src/${PACKAGE_NAME}-${PACKAGE_VERSION}"
 
-    install -dm755  "${pkgdir}/etc/modprobe.d"
-    install -dm755  "${pkgdir}/etc/udev/rules.d/" 
-    install -dm755  "${pkgdir}/etc/modules-load.d/" 
+    mkdir -p ${pkgdir}/etc/modprobe.d/
     echo "options kvmfr static_size_mb=32" > "${pkgdir}/etc/modprobe.d/kvmfr.conf"
     echo 'SUBSYSTEM=="kvmfr", KERNEL=="kvmfr0", OWNER="root", GROUP="kvm", MODE="0660"' > "${pkgdir}/etc/udev/rules.d/99-kvmfr.rules"
 
     # Load all modules that need to be present at start up 
     # KVMFR  - Looking Glass 
     echo "kvmfr" >  "${pkgdir}/etc/modules-load.d/kvmfr.conf"
-    # UINPUT - Input forwarder 
-    echo "uinput" > "${pkgdir}/etc/modules-load.d/uinput.conf"
 
 
 }
