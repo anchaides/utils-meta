@@ -19,7 +19,7 @@ build() {
     cp $srcdir/40dc881248c5685d1b9ccfbf559269fa/iommu.sh $srcdir/bin/print-iommu 
     mv $srcdir/vfio-pci-bind/vfio-pci-bind.sh $srcdir/bin/vfio-pci-bind 
 
-    #looking glass compile - rebuild should fix missing library dependencies (From discord)
+    #looking glass compile - rebuild should fix missing library dependencies (From discord) #2
     mkdir -p  $srcdir/LookingGlass/client/build 
     cd $srcdir/LookingGlass
     git submodule update --init --recursive
