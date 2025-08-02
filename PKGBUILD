@@ -100,7 +100,7 @@ package() {
     cp      -r $PWD/* "${pkgdir}/usr/src/${PACKAGE_NAME}-${PACKAGE_VERSION}"
 
     mkdir -p ${pkgdir}/etc/modprobe.d/
-    echo "options kvmfr static_size_mb=32" > "${pkgdir}/etc/modprobe.d/kvmfr.conf"
+    echo "options kvmfr static_size_mb=128" > "${pkgdir}/etc/modprobe.d/kvmfr.conf"
     echo 'SUBSYSTEM=="kvmfr", KERNEL=="kvmfr0", OWNER="root", GROUP="kvm", MODE="0660"' > "${pkgdir}/etc/udev/rules.d/99-kvmfr.rules"
 
     # Load all modules that need to be present at start up 
@@ -112,7 +112,7 @@ package() {
 
 post_install() {
     echo "Loading the module with modprobe." 
-    sudo modprobe kvmfr static_size_mb=32
+    sudo modprobe kvmfr static_size_mb=128
 }
 
 post_upgrade() {
