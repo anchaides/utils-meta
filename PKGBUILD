@@ -1,6 +1,6 @@
 pkgname=anchaides-meta 
 pkgver=1.4
-pkgrel=5
+pkgrel=6
 pkgdesc="Aggregator package for useful scripts I've ran across over time" 
 arch=('x86_64')
 url=TBD
@@ -112,6 +112,7 @@ package() {
 
 post_install() {
     echo "Loading the module with modprobe." 
+    #Fix: When opening Warzone LG complains about needing 128 MiB for IVSHMEM/KVMFR
     sudo modprobe kvmfr static_size_mb=128
 }
 
